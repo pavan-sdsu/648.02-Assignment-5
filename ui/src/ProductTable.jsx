@@ -20,6 +20,7 @@ export default class ProductTable extends Component {
 							<td>Price</td>
 							<td>Category</td>
 							<td>Image</td>
+							<td>Actions</td>
 						</tr>
 					</thead>
 					<tbody>
