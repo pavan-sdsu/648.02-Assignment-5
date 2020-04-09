@@ -4,6 +4,7 @@ const fs = require('fs');
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { MongoClient } = require('mongodb');
+const mongodb = require('mongodb');
 
 const app = express();
 
@@ -37,7 +38,11 @@ const resolvers = {
       } catch (error) {
         return [];
       }
-    },
+	},
+	getProduct: async (_, {_id}) => {
+		const oid = new mongodb.ObjectID(_id);
+		return await inventory.findOne(oid);
+	}
   },
   Mutation: {
     addProduct: async (_, {

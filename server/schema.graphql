@@ -1,5 +1,6 @@
 type Query {
-	productList: [Product!]!
+	productList: [Product!]!,
+	getProduct (_id: String!): Product!
 }
 
 type Mutation {
