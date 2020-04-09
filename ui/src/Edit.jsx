@@ -42,6 +42,7 @@ export default class Edit extends Component {
 	}
 
 	onSubmit(e) {
+		e.preventDefault();
 		
 		const product = {
 			Category: document.getElementById("category").value,
@@ -49,10 +50,39 @@ export default class Edit extends Component {
 			Name: document.getElementById("name").value,
 			Image: document.getElementById("image").value
 		}
-		console.log(product);
-		
-		e.preventDefault();
-		
+
+		const query = `
+		mutation {
+			updateProduct (
+				Category: [${product.Category}]
+				_id: "${this.state.product._id}"
+				Name: "${product.Name}"
+				Price: ${product.Price}
+				Image: "${product.Image}"
+			  ) {
+				id
+				Category
+				Price
+				Name
+				Image
+			  }
+		}
+		`;
+
+		fetch(BASE_URL + "/graphql", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ query })
+		})
+		.then(res => res.json())
+		.then((res) => {
+			console.log(res);
+			this.setState((state, props) => {
+				state.products = res.data.updateProduct;
+				return state;
+			})
+		})
+		.catch(err => console.error(err))	
 	}
 
 	render() {

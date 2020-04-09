@@ -12,6 +12,7 @@ export default class ProductList extends Component {
 			products: []
 		}
 		this.addProduct = this.addProduct.bind(this);
+		this.deleteProduct = this.deleteProduct.bind(this);
 		this.getProducts()
 	}
 
@@ -78,11 +79,27 @@ export default class ProductList extends Component {
 		.catch(err => console.error(err))
 	}
 
+	deleteProduct(_id) {
+		const query = `mutation { deleteProduct (_id: "${_id}") }`
+
+		fetch(BASE_URL + "/graphql", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ query })
+		})
+		.then(res => res.json())
+		.then((res) => {
+			if (res.data.deleteProduct) this.getProducts();
+		})
+		.catch(err => console.error(err))
+
+	} 
+
 	render() {
 		return (
 			<Fragment>
 				<h2>My Company Inventory</h2>
-				<ProductTable products={this.state.products} />
+				<ProductTable products={this.state.products} deleteProduct={this.deleteProduct} />
 				<ProductAdd addProduct={this.addProduct} />
 			</Fragment>
 		)

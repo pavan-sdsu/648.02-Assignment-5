@@ -49,8 +49,18 @@ button {
 	background: white;
 	padding: 0.5rem 1rem;
 	border: 1px solid black;
-	font-size: 1rem
+	font-size: 1rem;
+	cursor: pointer;
 }
+
+button.link {
+	border: none;
+	padding: 0;
+	color:  -webkit-link;
+	text-decoration: underline;
+}
+
+button.link:focus { outline: none }
 
 hr {
 	margin-bottom: 1rem

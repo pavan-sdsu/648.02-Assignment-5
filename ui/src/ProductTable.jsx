@@ -8,7 +8,7 @@ export default class ProductTable extends Component {
 	}
 
 	render() {
-		const rows = this.props.products.map(p => <ProductRow product={p} key={p.id} />)
+		const rows = this.props.products.map(p => <ProductRow product={p} key={p.id} deleteProduct={this.props.deleteProduct} />)
 		return (
 			<section>
 				<p>Showing all available products</p>

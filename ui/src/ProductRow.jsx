@@ -4,11 +4,15 @@ import { Link, withRouter } from 'react-router-dom';
 class ProductRow extends Component {
 	constructor(props) {
 		super(props);
+		this.onDelete = this.onDelete.bind(this);
+	}
+
+	onDelete() {
+		this.props.deleteProduct(this.props.product._id)
 	}
 
 	render() {
 		const { _id, Name, Price, Category, Image } = this.props.product;
-		console.log(this.props.product);
 		
 		return (
 			<tr>
@@ -16,7 +20,7 @@ class ProductRow extends Component {
 				<td>${ Price }</td>
 				<td>{ Category }</td>
 				<td><a href={ Image } target="_blank">View</a></td>
-				<td><Link to={`/edit/${_id}`}>Edit</Link></td>
+				<td><Link to={`/edit/${_id}`}>Edit</Link> / <button className="link" onClick={this.onDelete}>Delete</button></td>
 			</tr>
 		)
 	}
