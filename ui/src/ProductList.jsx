@@ -3,6 +3,8 @@ import React, { Component, Fragment } from 'react'
 import ProductAdd from './ProductAdd.jsx'
 import ProductTable from './ProductTable.jsx'
 
+import graphQLFetch from './graphQLFetch'
+
 export default class ProductList extends Component {
 	constructor(props) {
 		super(props);
@@ -28,12 +30,7 @@ export default class ProductList extends Component {
 		}
 		`;
 
-		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ query })
-		})
-		.then(res => res.json())
+		graphQLFetch(query)
 		.then((res) => {
 			this.setState((state, props) => {
 				state.products = res.data.productList;
@@ -62,12 +59,7 @@ export default class ProductList extends Component {
 		}
 		`;
 
-		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ query })
-		})
-		.then(res => res.json())
+		graphQLFetch(query)
 		.then((res) => {
 			this.setState((state, props) => {
 				state.products.push(res.data.addProduct);
@@ -80,12 +72,7 @@ export default class ProductList extends Component {
 	deleteProduct(_id) {
 		const query = `mutation { deleteProduct (_id: "${_id}") }`
 
-		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ query })
-		})
-		.then(res => res.json())
+		graphQLFetch(query)
 		.then((res) => {
 			if (res.data.deleteProduct) this.getProducts();
 		})

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NumInput from './NumInput.jsx';
 import TextInput from './TextInput.jsx';
+import graphQLFetch from './graphQLFetch.js';
 
 export default class ProductEdit extends Component {
 
@@ -28,12 +29,7 @@ export default class ProductEdit extends Component {
 		}
 		`;
 
-		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ query })
-		})
-			.then(res => res.json())
+		graphQLFetch(query)
 			.then((res) => {
 				this.setState((state, props) => {
 					state["product"] = res.data.getProduct;
@@ -45,7 +41,7 @@ export default class ProductEdit extends Component {
 
 	onSubmit(e) {
 		e.preventDefault();
-		
+
 		const product = {
 			Category: document.getElementById("category").value,
 			Price: document.getElementById("price").value,
@@ -71,20 +67,15 @@ export default class ProductEdit extends Component {
 		}
 		`;
 
-		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ query })
-		})
-		.then(res => res.json())
-		.then((res) => {
-			console.log(res);
-			this.setState((state, props) => {
-				state.product = res.data.updateProduct;
-				return state;
+		graphQLFetch(query)
+			.then((res) => {
+				console.log(res);
+				this.setState((state, props) => {
+					state.product = res.data.updateProduct;
+					return state;
+				})
 			})
-		})
-		.catch(err => console.error(err))	
+			.catch(err => console.error(err))
 	}
 
 	onChange(event, naturalValue) {
@@ -94,7 +85,7 @@ export default class ProductEdit extends Component {
 	}
 
 	render() {
-		const {Name, Price, Category, Image, id} = this.state.product;
+		const { Name, Price, Category, Image, id } = this.state.product;
 		return (
 			<div>
 				<h2>Update Product</h2>

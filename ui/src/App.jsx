@@ -13,6 +13,8 @@ import ProductList from './ProductList.jsx'
 import ProductEdit from './ProductEdit.jsx'
 import ProductView from './ProductView.jsx'
 
+const NotFound = () => <h1>Page Not Found</h1>;
+
 class App extends Component {
 	render() {
 		return (
@@ -22,6 +24,7 @@ class App extends Component {
 					<Route path="/products" component={ProductList} />
 					<Route path="/edit/:id" component={ProductEdit} />
 					<Route path="/view/:id" component={ProductView} />
+					<Route component={NotFound} />
 				</Switch>
 			</Router>
 		)
