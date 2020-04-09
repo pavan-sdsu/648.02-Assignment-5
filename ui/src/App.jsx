@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import ProductList from './ProductList.jsx'
-import Edit from './Edit.jsx'
+import Edit from './ProductEdit.jsx'
 
 class App extends Component {
 	render() {

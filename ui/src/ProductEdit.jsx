@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import NumInput from './NumInput.jsx';
+import TextInput from './TextInput.jsx';
+
 const BASE_URL = "http://localhost:3000";
 
 export default class Edit extends Component {
@@ -10,6 +13,7 @@ export default class Edit extends Component {
 		const _id = props.location.pathname.split("/edit/")[1];
 		this.getProduct(_id);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.onChange = this.onChange.bind(this);
 	}
 
 	getProduct(_id) {
@@ -60,7 +64,7 @@ export default class Edit extends Component {
 				Price: ${product.Price}
 				Image: "${product.Image}"
 			  ) {
-				id
+				_id
 				Category
 				Price
 				Name
@@ -78,15 +82,21 @@ export default class Edit extends Component {
 		.then((res) => {
 			console.log(res);
 			this.setState((state, props) => {
-				state.products = res.data.updateProduct;
+				state.product = res.data.updateProduct;
 				return state;
 			})
 		})
 		.catch(err => console.error(err))	
 	}
 
+	onChange(event, naturalValue) {
+		const { name, value: textValue } = event.target;
+		const value = naturalValue === undefined ? textValue : naturalValue;
+		this.setState((state, props) => state.product[name] = value)
+	}
+
 	render() {
-		const {Name, Price, Category, Image} = this.state.product;
+		const {Name, Price, Category, Image, id} = this.state.product;
 		return (
 			<div>
 				<h2>Update Product</h2>
@@ -103,11 +113,11 @@ export default class Edit extends Component {
 					</div>
 					<div className="input-group">
 						<label htmlFor="price">Price:</label>
-						<input type="text" id="price" defaultValue={Price} />
+						<NumInput name="price" id="price" key={id} onChange={this.onChange} value={Price}></NumInput>
 					</div>
 					<div className="input-group">
 						<label htmlFor="name">Product Name:</label>
-						<input type="text" id="name" defaultValue={Name} />
+						<TextInput name="name" id="name" key={id} value={Name} onChange={this.onChange}></TextInput>
 					</div>
 					<div className="input-group">
 						<label htmlFor="image">Image URL:</label>
