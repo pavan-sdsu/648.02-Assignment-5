@@ -1,5 +1,3 @@
-const BASE_URL = "http://localhost:3000";
-
 import React, { Component, Fragment } from 'react'
 
 import ProductAdd from './ProductAdd.jsx'
@@ -30,7 +28,7 @@ export default class ProductList extends Component {
 		}
 		`;
 
-		fetch(BASE_URL + "/graphql", {
+		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ query })
@@ -64,7 +62,7 @@ export default class ProductList extends Component {
 		}
 		`;
 
-		fetch(BASE_URL + "/graphql", {
+		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ query })
@@ -82,7 +80,7 @@ export default class ProductList extends Component {
 	deleteProduct(_id) {
 		const query = `mutation { deleteProduct (_id: "${_id}") }`
 
-		fetch(BASE_URL + "/graphql", {
+		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ query })

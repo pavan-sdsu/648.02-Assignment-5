@@ -10,7 +10,8 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import ProductList from './ProductList.jsx'
-import Edit from './ProductEdit.jsx'
+import ProductEdit from './ProductEdit.jsx'
+import ProductView from './ProductView.jsx'
 
 class App extends Component {
 	render() {
@@ -19,7 +20,8 @@ class App extends Component {
 				<Switch>
 					<Redirect exact from="/" to="/products" />
 					<Route path="/products" component={ProductList} />
-					<Route path="/edit/:id" component={Edit} />
+					<Route path="/edit/:id" component={ProductEdit} />
+					<Route path="/view/:id" component={ProductView} />
 				</Switch>
 			</Router>
 		)

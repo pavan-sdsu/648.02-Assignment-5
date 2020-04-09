@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import NumInput from './NumInput.jsx';
 import TextInput from './TextInput.jsx';
 
-const BASE_URL = "http://localhost:3000";
-
-export default class Edit extends Component {
+export default class ProductEdit extends Component {
 
 	state = { product: {} }
 
@@ -30,7 +28,7 @@ export default class Edit extends Component {
 		}
 		`;
 
-		fetch(BASE_URL + "/graphql", {
+		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ query })
@@ -73,7 +71,7 @@ export default class Edit extends Component {
 		}
 		`;
 
-		fetch(BASE_URL + "/graphql", {
+		fetch(window.ENV.UI_API_ENDPOINT + "/graphql", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ query })

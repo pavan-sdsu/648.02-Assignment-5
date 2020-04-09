@@ -19,7 +19,7 @@ class ProductRow extends Component {
 				<td>{ Name }</td>
 				<td>${ Price }</td>
 				<td>{ Category }</td>
-				<td><a href={ Image } target="_blank">View</a></td>
+				<td><Link to={`/view/${_id}`}>View</Link></td>
 				<td><Link to={`/edit/${_id}`}>Edit</Link> / <button className="link" onClick={this.onDelete}>Delete</button></td>
 			</tr>
 		)
