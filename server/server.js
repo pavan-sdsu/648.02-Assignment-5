@@ -1,9 +1,10 @@
 require('dotenv').config();
 
 const express = require('express');
+
 const app = express();
 
-const api = require("./api/apiHander")
+const api = require('./api/apiHander');
 
 api.installHandler(app);
 
