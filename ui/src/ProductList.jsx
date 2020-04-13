@@ -74,7 +74,10 @@ export default class ProductList extends Component {
 
 		graphQLFetch(query)
 		.then((res) => {
-			if (res.data.deleteProduct) this.getProducts();
+			if (res.data.deleteProduct) {
+				alert("Deleted Successfully")
+				this.getProducts();
+			}
 		})
 		.catch(err => console.error(err))
 
